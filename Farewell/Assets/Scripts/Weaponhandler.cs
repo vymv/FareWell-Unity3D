@@ -7,14 +7,20 @@ using UnityEngine;
 //代码思路参考：https://www.bilibili.com/video/BV1pE411n7Bg?p=14
 public class Weaponhandler : MonoBehaviour
 {
-    
+    public float SpeedOfBullet = 5f;
+    public float damage = 2f;
+    public float launch_ahead_length = 5f;
+    public float Scale = 1f;
 
     private Animator anim;
-    public float damage=2f;
-    // Update is called once per frame
+    private Camera mainCam;
+    [SerializeField]
+    private GameObject PlayerBullet_Prefab;
+
     void Awake()
     {
         anim = GetComponent<Animator>();
+        mainCam = Camera.main;
     }
     void Update()
     {
@@ -33,6 +39,17 @@ public class Weaponhandler : MonoBehaviour
     void LaunchBullet()
     {
         //新建一个子弹并发出
+        GameObject Bullet = Instantiate(PlayerBullet_Prefab);
+        //初始化为相机位置
+        Bullet.transform.position = mainCam.transform.position;
+        Bullet.transform.position += mainCam.transform.forward * launch_ahead_length;
+        //设置大小
+        Bullet.transform.localScale = Scale * Bullet.transform.localScale;
+        //方向
+        Vector3 dir = mainCam.transform.forward;
+        //发射
+        Bullet.GetComponent<BulletControl>().Launch(SpeedOfBullet, dir, LaunchMode.Straight, damage);
+
     }
 
 }

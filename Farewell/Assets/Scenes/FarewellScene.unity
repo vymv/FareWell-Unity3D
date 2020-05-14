@@ -123,9 +123,9 @@ GameObject:
   - component: {fileID: 104950259}
   - component: {fileID: 104950262}
   - component: {fileID: 104950261}
+  - component: {fileID: 104950265}
   - component: {fileID: 104950260}
   - component: {fileID: 104950263}
-  - component: {fileID: 104950264}
   m_Layer: 0
   m_Name: fire gun
   m_TagString: Untagged
@@ -224,7 +224,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &104950264
+--- !u!114 &104950265
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -236,7 +236,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e60bf9aa0110e9549ade88f05e386be8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpeedOfBullet: 5
   damage: 2
+  launch_ahead_length: 5
+  Scale: 1
+  PlayerBullet_Prefab: {fileID: 4281150838800505602, guid: 9aac5500759a2844e98a4bdac1d75373,
+    type: 3}
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,7 +579,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 10}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &910425020
 MonoBehaviour:
@@ -596,7 +601,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: fce04bf5c0fa8e14ba0e0251030a2126, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -656,15 +661,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 968652387}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 941be53092191b244bf08379a62c0411, type: 3}
+  m_Script: {fileID: 11500000, guid: 24539e3a984f2ea4d839f1785d970c43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character_Controller: {fileID: 0}
-  move_Direction: {x: 0, y: 0, z: 0}
   speed: 2
-  gravity: 20
   jump_Force: 10
-  vertical_Velocity: 0
 --- !u!143 &968652390
 CharacterController:
   m_ObjectHideFlags: 0
@@ -813,9 +814,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1275061741}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.26, y: -0.27, z: 2.24}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_LocalPosition: {x: -1.85, y: 1.34, z: 6.31}
+  m_LocalScale: {x: 2.6513586, y: 3.9021137, z: 3.275071}
+  m_Children:
+  - {fileID: 2073297870}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -848,7 +850,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  frequency: 5
+  Scale: 1
+  SpeedOfBullet: 5
+  LaunchInterval: 1
+  direction_amount: 5
+  dispersion_angle: 10
+  EnemyBullet_Prefab: {fileID: 4087244193042445310, guid: f94d39cb36cc8d5418a21913a60aa0bb,
+    type: 3}
+  launch_point: {fileID: 2073297870}
 --- !u!1001 &1395112505
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1025,3 +1034,33 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &2073297869
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2073297870}
+  m_Layer: 0
+  m_Name: Launch Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2073297870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073297869}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.09, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1275061746}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
