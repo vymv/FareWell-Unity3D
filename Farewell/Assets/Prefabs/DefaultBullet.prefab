@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1993514120426764319}
   m_Layer: 0
   m_Name: DefaultBullet
-  m_TagString: Untagged
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,6 +107,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   is_playerbullet: 1
   damage: 0
+  t1: {fileID: 0}
+  t2: {fileID: 0}
+  deactivate_Timer: 30
 --- !u!54 &1993514120426764319
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: e23056c503e332e40b09ba4a0aaf578b
+  - enabled: 1
+    path: Assets/Scenes/SelectPlanet.unity
+    guid: bcc7da28f28733b4fb73b303f8553b54
+  - enabled: 1
+    path: Assets/Scenes/MarsFightScene.unity
+    guid: 774abfc36bebe2347803bd723dfd9940
+  - enabled: 1
+    path: Assets/Scenes/Plot.unity
+    guid: 49152ddca7e2cec45b280253bc46af6b
   m_configObjects: {}

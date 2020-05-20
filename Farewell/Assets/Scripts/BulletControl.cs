@@ -17,10 +17,18 @@ public class BulletControl : MonoBehaviour
     public bool is_playerbullet;
     public float damage;
     private Rigidbody myBody;
+    private LineRenderer laserLine;
+    public GameObject t1;    //开始位置  
+    public GameObject t2;     //结束位置  
+    
+
 
     void Awake()
     {
+        float deactivate_Timer = 10f;
         myBody = GetComponent<Rigidbody>();
+        Destroy(this.gameObject, deactivate_Timer);
+        //Invoke("delete", deactivate_Timer);//经过30s后自动deactivate
     }
 
     // Update is called once per frame
@@ -29,13 +37,74 @@ public class BulletControl : MonoBehaviour
         
     }
 
-    public void Launch(float speed,Vector3 dir,LaunchMode m,float d)
+    public void Launch(float speed, Vector3 dir, LaunchMode m, float d)
     {
-        if(m==LaunchMode.Straight)
+        if (m == LaunchMode.Straight)
         {
             damage = d;
             myBody.velocity = dir * speed;
             transform.LookAt(transform.position + myBody.velocity);
         }
+        else if (m == LaunchMode.Mode2)
+        {
+            damage = d;
+            //两者中心点  
+            Vector3 center = (t1.transform.position + t2.transform.position) * 0.5f;
+
+            center -= new Vector3(0, 1, 0);
+
+            Vector3 start = t1.transform.position - center;
+            Vector3 end = t2.transform.position - center;
+
+            //弧形插值  
+            transform.position = Vector3.Slerp(start, end, Time.time);
+            transform.position += center;
+        }
+
     }
+    void OnTriggerEnter(Collider other)
+    {
+        //敌人的子弹
+        Debug.Log("me"+this.gameObject.name+"collider:" + other.gameObject.name);
+        if (!is_playerbullet)
+        {
+            if (other.gameObject.tag=="PlayerBullet")
+            {
+
+                Debug.Log("两方子弹碰撞：" + this.gameObject.name);
+                Destroy(this.gameObject);
+               
+            }
+            else if(other.gameObject.tag == "Player")
+            {
+                other.gameObject.GetComponent<HealthScript>().ApplyDamage(damage);
+                Debug.Log("碰撞player销毁" + this.gameObject.name);
+                Destroy(this.gameObject);
+            }
+            else if (other.gameObject.tag == "Terrain")
+            {
+                Destroy(this.gameObject);
+            }
+        }
+        //玩家的子弹
+        else
+        {
+            if (other.gameObject.tag == "EnemyBullet")
+            {
+                Debug.Log("两方子弹碰撞：" + this.gameObject.name);
+                Destroy(this.gameObject);
+            }
+            else if(other.gameObject.tag == "Enemy")
+            {
+                other.gameObject.GetComponent<HealthScript>().ApplyDamage(damage);
+                Debug.Log("碰撞enemy销毁" + this.gameObject.name);
+                Destroy(this.gameObject);
+            }
+            else if (other.gameObject.tag == "Terrain")
+            {
+                Destroy(this.gameObject);
+            }
+        }
+    }
+
 }

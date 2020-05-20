@@ -6,8 +6,8 @@ public class EnemyController : MonoBehaviour
 {
     //实现每隔一段时间发射弹幕，弹幕为prefab中的fireBullet
     // Start is called before the first frame update
-    public float damage=1f;
-    public float Scale=1f;
+    public float damage = 1f;
+    public float Scale = 1f;
     public float SpeedOfBullet = 5f;
     public float LaunchInterval = 1f;
     public float direction_amount = 5f;
@@ -23,7 +23,7 @@ public class EnemyController : MonoBehaviour
     void Awake()
     {
         mainCam = Camera.main;
-        target= GameObject.FindWithTag("Player").transform;
+        target = GameObject.FindWithTag("Player").transform;
     }
 
     void Start()
@@ -34,14 +34,14 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     IEnumerator CreateBullet()
     {
 
 
-        for(int i=0;i<1000;i++)
+        for (int i = 0; i < 1000; i++)
         {
             Vector3 maindir = target.position - transform.position;
 
@@ -68,6 +68,7 @@ public class EnemyController : MonoBehaviour
                 //方向
                 dir = Quaternion.AngleAxis(dispersion_angle, Vector3.up) * dir;
                 //发射
+
                 Bullet.GetComponent<BulletControl>().Launch(SpeedOfBullet, dir, LaunchMode.Straight, damage);
             }
 
@@ -77,4 +78,5 @@ public class EnemyController : MonoBehaviour
 
 
     }
+        
 }
